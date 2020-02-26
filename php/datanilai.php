@@ -60,7 +60,7 @@ if(mysqli_num_rows($query)) {
     echo"Data Tidak Ditemukan!";
     }
     ?>
-<a href="inputnilai.php"><button type="button" class="btn btn-info">Back</button></a>
+<a href="inputnilai.php"><button type="button" class="btn btn-info pl-3 pr-3">Back</button></a>
 </div>
 
     <!-- Optional JavaScript -->
