@@ -1,11 +1,12 @@
 <?php
+session_start();
 include'../connection/koneksi.php';
         if(isset($_POST['login'])){
             $username = $_POST['uname'];
             $password =$_POST['pass'];
             
             // ini adalah query
-            $login=mysqli_query($koneksi,"select * from user where username='$username' and password=md5('$password')");
+            $login=mysqli_query($connect,"select * from user where username='$username' and password=md5('$password')");
 
             // ini adalah check data
             $check=mysqli_num_rows($login);
@@ -19,7 +20,7 @@ include'../connection/koneksi.php';
                     $_SESSION['level']=$data['level'];
                     $_SESSION['status']='login';
 
-                    echo "<script> alert(window.location.href='../php/formnilai.php');
+                    echo "<script> alert(window.location.href='../php/inputnilai.php');
                         </script>";
                 }elseif($data['level']=='user'){
 

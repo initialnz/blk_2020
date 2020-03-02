@@ -1,3 +1,7 @@
+<?php
+session_start();
+include'../connection/koneksi.php'
+?>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 <style>
@@ -16,56 +20,66 @@
     }
 </style>
 
+<?php
+$id=$_GET['id_mahasiswa'];
+$query=mysqli_query($connect, "select * from mahasiswa where id_mahasiswa='$id'") or die (mysqli_error($query));
+if(mysqli_num_rows($query)) {
+    $assoc=mysqli_fetch_assoc($query);
+}else{
+    echo"<script>alert('Data Yang Anda Masukkan Salah!'); window.history.back();</script>";
+}
+?>
 <div class="container">
     <div class="absol">
         <div class="row a shadow-lg pt-4 rounded">
             <div class="form-group col-md-6 offset-md-3">
-                <h3 class="text-center">Rekapitulasi Nilai Mahasiswa</h3>
+                <h3 class="text-center">Edit Nilai</h3>
             </div>
         </div>
-        <form class="bg-info pt-4" action="../process/prosesnilai.php" method="post">
+        <form class="bg-info pt-4" action="../process/proses_edit.php" method="GET">
+        <input type="text" name="id" hidden  value="<?php echo $assoc['id_mahasiswa'];?>">
         <div class="form-row">
             <div class="form-group col-md-6 offset-md-3">
             <label for="nama">Nama</label>
-            <input type="text" class="form-control" id="nama" name="nama" required>
+            <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $assoc['nama']; ?>" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6 offset-md-3">
             <label for="nim">NIM</label>
-            <input type="text" class="form-control" id="nim" name="nim" required>
+            <input type="text" class="form-control" id="nim" name="nim" value="<?php echo $assoc['nim']; ?>" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6 offset-md-3">
             <label for="jurusan">Jurusan</label>
-            <input type="text" class="form-control" id="jurusan" name="jurusan" required>
+            <input type="text" class="form-control" id="jurusan" name="jurusan" value="<?php echo $assoc['jurusan'];?>" required>
             </div>
         </div>
-        <div class="form-row">
+            <div class="form-row">
             <div class="form-group col-md-6 offset-md-3">
-            <label for="jurusan">Mata Kuliah</label>
-            <input type="text" class="form-control" id="jurusan" name="matkul" required>
+            <label for="mata_kuliah">Mata Kuliah</label>
+            <input type="text" class="form-control" id="mata_kuliah" name="matkul" value="<?php echo $assoc['mata_kuliah'];?>" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-3 offset-md-3">
             <label for="harian">Nilai Harian</label>
-            <input type="number" class="form-control" id="harian" name="harian" required>
+            <input type="number" class="form-control" id="harian" name="harian" value="<?php echo $assoc['nilai_harian']; ?>" required>
             </div>
             <div class="form-group col-md-3">
             <label for="uts">Nilai UTS</label>
-            <input type="number" class="form-control" id="uts" name="uts" required>
+            <input type="number" class="form-control" id="uts" name="uts" value="<?php echo $assoc['nilai_uts']; ?>" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-3 offset-md-3">
             <label for="kuis">Nilai Kuis</label>
-            <input type="number" class="form-control" id="kuis" name="kuis" required>
+            <input type="number" class="form-control" id="kuis" name="kuis" value="<?php echo $assoc['nilai_kuis']; ?>" required>
             </div>
             <div class="form-group col-md-3">
             <label for="uas">Nilai UAS</label>
-            <input type="number" class="form-control" id="uas" name="uas" required>
+            <input type="number" class="form-control" id="uas" name="uas" value="<?php echo $assoc['nilai_uas']; ?>" required>
             </div>
         </div>
         <div class="form-row">

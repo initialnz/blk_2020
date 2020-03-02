@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -19,7 +22,7 @@
     <h1 class="text-center">Rekapitulasi Nilai Mahasiswa</h1>
     </div>
 <?php
-$query=mysqli_query($koneksi,"select * from mahasiswa") or die(mysqli_error($query));
+$query=mysqli_query($connect,"select * from mahasiswa") or die(mysqli_error($query));
 if(mysqli_num_rows($query)) {
     echo "<table class='table table-striped table-dark'>
   <thead>
@@ -27,28 +30,34 @@ if(mysqli_num_rows($query)) {
       <th scope='col'>nama</th>
       <th scope='col'>nim</th>
       <th scope='col'>jurusan</th>
+      <th scope='col'>mata_kuliah</th>
       <th scope='col'>nilai_harian</th>
       <th scope='col'>nilai_kuis</th>
       <th scope='col'>nilai_uts</th>
       <th scope='col'>nilai_uas</th>
       <th scope='col'>nilai_akhir</th>
       <th scope='col'>grade</th>
+      <th scope='col' colspan=2>option</th>
     </tr>
   </thead>";
   ?>
   <?php
- while ($row=mysqli_fetch_assoc($query)){ ?>
+ while ($assoc=mysqli_fetch_assoc($query)){ ?>
   <tbody>
     <tr>
-      <th scope='row'><?php echo $row['nama'];?></th>
-      <td><?php echo $row['nim']; ?></td>
-      <td><?php echo $row['jurusan']; ?></td>
-      <td><?php echo $row['nilai_harian']; ?></td>
-      <td><?php echo $row['nilai_kuis']; ?></td>
-      <td><?php echo $row['nilai_uts']; ?></td>
-      <td><?php echo $row['nilai_uas']; ?></td>
-      <td><?php echo $row['nilai_akhir']; ?></td>
-      <td><?php echo $row['grade']; ?></td>
+      <th scope='row'><?php echo $assoc['nama'];?></th>
+      <td><?php echo $assoc['nim']; ?></td>
+      <td><?php echo $assoc['jurusan']; ?></td>
+      <td><?php echo $assoc['mata_kuliah']; ?></td>
+      <td><?php echo $assoc['nilai_harian']; ?></td>
+      <td><?php echo $assoc['nilai_kuis']; ?></td>
+      <td><?php echo $assoc['nilai_uts']; ?></td>
+      <td><?php echo $assoc['nilai_uas']; ?></td>
+      <td><?php echo $assoc['nilai_akhir']; ?></td>
+      <td><?php echo $assoc['grade']; ?></td>
+      <td><a href='editnilai.php?id_mahasiswa=<?php echo $assoc['id_mahasiswa']?>'><button type="button" class="btn btn-success pl-3 pr-3">Edit</button></a></td>
+        <td><a href='../process/proses_hapus.php?id_mahasiswa=<?php echo $assoc['id_mahasiswa']?>'><button type="button" class="btn btn-danger pl-3 pr-3">Hapus</button></a></td>
+
     </tr>
   </tbody>
   <?php
